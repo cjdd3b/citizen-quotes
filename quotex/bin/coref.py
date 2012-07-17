@@ -15,7 +15,7 @@ from calais import Calais
 from apps.content.models import Story, Source
 
 # OpenCalais API key. Get one here: http://www.opencalais.com/APIkey/
-API_KEY = 'xzaj99phgusg94t4zdpgk6x8'
+API_KEY = ''
 
 ########## PRIVATE FUNCTIONS ##########
 

@@ -2,6 +2,34 @@ from django.db import models
 from django.utils.html import strip_tags
 
 
+########## CUSTOM MANAGERS ##########
+
+# PARAGRAPHS
+
+class TrainingManager(models.Manager):
+    """
+    Returns items from the training set.
+    """
+    def get_query_set(self):
+        return super(TrainingManager, self).get_query_set().filter(for_training=True)
+
+class UnclassifiedManager(models.Manager):
+    """
+    Returns unclassified items.
+    """
+    def get_query_set(self):
+        return super(UnclassifiedManager, self).get_query_set().filter(quote=None)
+
+class QuoteManager(models.Manager):
+    """
+    Returns classified quotes.
+    """
+    def get_query_set(self):
+        return super(QuoteManager, self).get_query_set().filter(quote=True)
+
+
+########## MODELS ##########
+
 class Story(models.Model):
     '''
     Model representing a news story. This demo doesn't interact much
@@ -10,6 +38,7 @@ class Story(models.Model):
     title = models.CharField(max_length=255)
     slug = models.CharField(max_length=255, blank=True)
     body = models.TextField(blank=True)
+    url = models.CharField(max_length=255, blank=True)
 
     class Meta:
         verbose_name_plural = 'Stories'
@@ -32,6 +61,9 @@ class Story(models.Model):
         '''
         return '\n'.join([p.text for p in self.paragraph_set.all()]).strip()
 
+    def get_absolute_url(self):
+        return 'http://www.baycitizen.org%s' % self.url
+
 
 class Paragraph(models.Model):
     '''
@@ -47,12 +79,32 @@ class Paragraph(models.Model):
     score = models.FloatField(blank=True, null=True)
     sources = models.ManyToManyField('Source')
     for_training = models.BooleanField(default=False)
+    num_words = models.IntegerField(blank=True, null=True)
+    # Managers
+    objects = models.Manager()
+    quotes = QuoteManager()
+    unclassified = UnclassifiedManager()
+    training = TrainingManager()
 
     class Meta:
         ordering = ['story', 'order',]
 
     def __unicode__(self):
         return '%s: %s' % (self.story, self.order)
+
+    def _set_num_words(self):
+        '''
+        Internal method used to set the num_words attribute. Basically
+        just counts up the number of words in quote marks. This should
+        probably go in a save method override.
+        '''
+        from classify.features import bracketed_find
+        num_words = 0
+        for q in bracketed_find(self.text, '"', '"'):
+            num_words += len(q.split())
+        self.num_words = num_words
+        self.save()
+        return
 
 
 class Source(models.Model):

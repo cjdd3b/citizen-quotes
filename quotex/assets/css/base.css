@@ -1,0 +1,12 @@
+            #headerbar { text-align: center; margin-bottom: 50px;} 
+            #carousel { text-align: center;  min-height: 350px; width:80%; margin: 0px auto; margin-bottom:40px; }
+            #carousel a { text-decoration: none; color: #686868;}
+            #search-term { text-align: center; width:80%; margin: 0px auto; margin-bottom:20px; }
+            .carousel-inner { font-family:georgia,garamond,serif; font-size: 35px; color: #686868 }
+            .carousel-control { background: #555555; opacity: 1.0; }
+            #search-row { margin-bottom:70px; text-align: center; width:80%; margin: 0px auto; }
+            #search { text-align: center; margin-bottom: 10px;}
+            .bignumber { font-size: 70px; font-weight: bold; }
+            .explainer { margin-top:20px; }
+            #search-row p { font-style: italic; }
+            #search-explainer { margin-bottom: 60px;}

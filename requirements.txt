@@ -1,8 +1,12 @@
 Django==1.4
 PyYAML==3.10
 -e git://github.com/markng/python-calais.git@3ee7527cbc9587ec47c91f0d748cffde51b1f41c#egg=calais-dev
+django-tastypie==0.9.11
+-e git://github.com/patjenk/FixtureMaker.git@14b6176f6b841acfd774dd2e0933857be1dac0a0#egg=fixture_maker-dev
+mimeparse==0.1.3
 nltk==2.0.2
 numpy==1.6.2
 psycopg2==2.4.5
+python-dateutil==1.5
 simplejson==2.6.0
 wsgiref==0.1.2

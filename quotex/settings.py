@@ -4,7 +4,7 @@ import django
 
 # Base paths
 DJANGO_ROOT = os.path.dirname(os.path.realpath(django.__file__))
-SITE_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -18,6 +18,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        #'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'quotex',
         'PORT': '5432',
         'HOST': 'localhost',
@@ -125,7 +126,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     
     # External apps
- 
+
     # Project apps
     'apps.content',
 )

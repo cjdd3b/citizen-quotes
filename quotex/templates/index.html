@@ -1,0 +1,173 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <!-- Le styles -->
+        <link href="{{ STATIC_URL }}bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <link href="{{ STATIC_URL }}css/base.css" rel="stylesheet">
+
+        <script src="{{ STATIC_URL }}js/jquery.min.js"></script>
+        <script src="{{ STATIC_URL }}bootstrap/js/bootstrap-carousel.js"></script>
+
+        <script type="text/javascript">
+            // Global to keep track of total number of quotes that have been loaded
+            var total_items = 0;
+            var namequery = false;
+
+            function loadQuotes(limit, offset, source) {
+                params = {'format': 'json', 'limit': limit, 'offset': offset}
+
+                // Inelegant way of brute-forcing through query scenarios
+                if (source) { // This part deals with situations where someone searches for a name
+                    namequery = true;
+
+                    // Prep for tastypie-style query
+                    params["sources__name__contains"] = source;
+                    // Add header thing explaining query so people don't get list
+                    $("#search-term").html('<h3>Quotes featuring "' + source + '"<br /><a href="/">Back to all quotes</a></h3>');
+
+                    // Reset total items count and clears the quotes div in the case of search queries
+                    total_items = 0;
+                    $("#carousel-test").html('<div class="item active" id="initial"></div>');
+                } else { // If someone submits an empty form ...
+                    namequery = false;
+                }
+
+                $.getJSON('/api/v1/quote/', params, function(data) {
+                    var html = '';
+                    counter = 0;
+
+                    // More hacky crap. Handle name queries differently from regular queries.
+                    // Clean this up someday.
+                    if (namequery == true) {
+                        $("#initial").html(data.objects[0].text);
+                        counter += 1
+                    }
+
+                    // Get JSON for query and populate the carousel.
+                    for (var i = counter; i < data.objects.length; i++) {
+                        text = data.objects[i].text;
+                        link = data.objects[i].link;
+                        html += '<div class="item">' + '<a href="' + link + '" target="_blank">' + text + '</a></div>';
+                    }
+                    $("#carousel-test").append(html);
+                    total_items += limit;
+                }); 
+                return;
+            }
+
+            function load() {
+                // Load up 50 quotes on page load. Make this a variable someday.
+                loadQuotes(50, 0);
+            }
+
+        </script>
+
+    <body onload="load()">
+
+        <div class="container">
+  
+            <div class="row">
+                <div class="span12" id="headerbar">
+                    <a href="http://www.baycitizen.org"><img src="http://d1m7jskxfd7v6.cloudfront.net/images/layout/logo4-notag.png" /></a>
+                </div>
+            </div>
+
+            <div class="row" id="carousel-row">
+                <div id="search-term">
+                </div>
+                <div id="carousel" class="carousel">
+                    <!-- Carousel items -->
+                    <div class="carousel-inner" id="carousel-test">
+                        <!-- Start with a random quote. Hacky but good enough for demo work. -->
+                        <div class="item active" id="initial"><a href="{{ initial_quote.story.get_absolute_url }}">{{ initial_quote.text }}</a></div>
+                    </div>
+
+                </div>
+
+                <!-- Carousel nav -->
+                <a class="carousel-control left" style="margin-left:auto;" href="#carousel" data-slide="prev">&lsaquo;</a>
+                <a class="carousel-control right" style="margin-right:auto" href="#carousel" data-slide="next">&rsaquo;</a>
+                
+                <script>
+                    function check_backbutton() {
+                        // Runs constant checks to see whether the back button should be hidden.
+                        // It should only be hidden if the index of the curent slide is 0.
+                        if ($('#carousel .active').index('#carousel .item') == 0) {
+                            $('.carousel-control.left').hide();
+                        } else {
+                            $('.carousel-control.left').show();
+                        }
+                    }
+
+                    $(function() {
+                        // Attach a carousel that rotates every 9 seconds
+                        $('#carousel').carousel({interval: 9000});
+                        check_backbutton();
+                    });
+
+                    $('#carousel').bind('slid', function() {
+                        // Find the index of the current carousel slide. Clever hack from:
+                        // http://stackoverflow.com/questions/10499154/bootstrap-carousel-number-active-icon
+                        var index = $('#carousel .active').index('#carousel .item');
+                        if (index % 50 == 0 && namequery == false) {
+                            loadQuotes(50, total_items);
+                        }
+                        check_backbutton();
+                    })
+                </script>
+
+            </div>
+
+            <div class="row" id="search-row">
+                <div class="span8">
+                    <form id="search">
+                        <input type="text" name="namesearch" style="width:50%" onfocus="if(this.value == 'Search for a source here ...') { this.value = ''; }" value="Search for a source here ..." />
+                    </form>
+                    <div id="search-explainer">
+                        <p>Welcome to the Bay Citizen quote browser -- a new tool for discovering our content through the voices of the Bay Area community! We've indexed {{ quotes_count|intcomma }} quotes from more than 3,000 news stories written since the Bay Citizen launched in 2010. To search for quotes by a particular source, use the box above. The quote browser is currently in Beta, and we'd love your <a href="mailto:cdavis@cironline.org">feedback!</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                $('#search').submit(function() {
+                    // If someone submits a query in the box, get quotes fitting that query.
+                    // Otherwise, return them all.
+                    qs = $("input:first").val();
+                    if ( qs ) {
+                        loadQuotes(1000, 0, qs)
+                    }
+                    return false;
+                });
+            </script>
+
+
+            <div class="row" id="stats-row">
+                <div class="span4" id="headerbar">
+                    <span class="bignumber">{{ quotes_count|intcomma }}</span>
+                    <div class="explainer">Quotes since May 2010 ...</div>
+                </div>
+                <div class="span4" id="headerbar">
+                    <span class="bignumber">{{ sources_count|intcomma }}</span>
+                    <div class="explainer">... from this many sources ...</div>
+                </div>
+                <div class="span4" id="headerbar">
+                    <span class="bignumber">{{ quoted_words_count|intcomma }}</span>
+                    <div class="explainer">... who said this many words.</div>
+                </div>
+            </div>
+
+        </div>
+
+    </body>
+
+</html>

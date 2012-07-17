@@ -1,8 +1,17 @@
 from django.conf.urls import patterns, include, url
+from django.views import generic
+from tastypie.api import Api
+from apps.content.views import IndexView
+from apps.content.api import QuoteResource, SourceResource
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
+
+# Register resources with Tastypie
+v1_api = Api(api_name='v1')
+v1_api.register(QuoteResource())
+v1_api.register(SourceResource())
 
 urlpatterns = patterns('',
     # Examples:
@@ -14,4 +23,7 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+
+    url(r'^$', IndexView.as_view(), name="index"),
+    url(r'^api/', include(v1_api.urls), name="api"),
 )
