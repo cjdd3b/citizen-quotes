@@ -8,7 +8,7 @@ h2. Includes
 * A demonstration of OpenCalais for coreference detection.
 * Basic Django admin interface for training a classifier.
 * A simple public-facing quote browser interface.
-* Sample data so you can see how everything comes together.
+* Sample data so you can see how everything ties together.
 
 h2. Getting started
 
