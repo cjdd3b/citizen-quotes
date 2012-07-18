@@ -131,7 +131,7 @@ if __name__ == '__main__':
     # Train and test querysets for evaluate method
     training_set = Paragraph.training.all()
     train_query = training_set[:len(training_set)/2]
-    test_query = Paragraph.training.all()[len(training_set)/2:]
+    test_query = training_set[len(training_set)/2:]
 
     # Unlabeled data for the classify method
     unlabeled = Paragraph.unclassified.all()
