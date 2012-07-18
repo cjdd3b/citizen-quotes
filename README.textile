@@ -1,3 +1,52 @@
-h1. Quote extraction demo
+h1. Citizen Quotes
 
-First crack at quote extraction using maxent classifiers. More TK soon ...
+A simple project to demonstrate the use of NLTK maximum entropy models for extracting quotes from news articles. Also includes a pretty quote browser that cycles through quotes from Bay Citizen content.
+
+h2. Includes
+
+* A workflow and class wrapper for training, evaluating and applying NLTK maximum entropy models to quote detection.
+* A demonstration of OpenCalais for coreference detection.
+* Basic Django admin interface for training a classifier.
+* A simple public-facing quote browser interface.
+* Sample data so you can see how everything ties together.
+
+h2. Getting started
+
+The demo is designed to work out of the box with an included SQLite database. To get up and running, simply:
+
+<pre><code>git clone git@github.com:cirlabs/citizen-quotes.git
+cd citizen-quotes
+pip install -r requirements.txt
+cd quotex
+python manage.py runserver
+</code></pre>
+
+The quote browser will be running in your browser at 127.0.0.1:8000.
+
+h2. Training the system
+
+Being supervised classifiers, maxent models require a set of training data to learn from before they can begin classifying.
+
+In this case, the classification problem is a simply binary choice: Given a paragraph, is it a quote or isn't it? But as with most classification problems, things aren't quite so simple under the surface.
+
+Luckily, training the system is easy. Simple log into the system's admin interface at 127.0.0.1:8000/admin. The default username and password are both quotex.
+
+Navigate to the paragraph interface. In the list view, you'll see a dropdown that identifies an item as a quote and a checkbox indicating it should be in the training set. Simply set these values according to the each value according to its paragraph and hit save.
+
+The more training data you have, the better the classifier will work. We'd recommend manually classifiying at least a few hundred before you set the classifier loose.
+
+h2. Running the classifier
+
+The classifier is located at <code>quotex/classify/maxent.py</code>. Running it is easy:
+
+<pre><code>python maxent.py</code></pre>
+
+The first thing you'll want to do is see how it performs. By default, the script uses your manually classified training set to test initial performance. It does this by splitting the set in half: the first half for training and the second half for testing. You can change that split in the code if you'd like.
+
+When you're ready to perform the actual classification, just uncomment the following line in the classifier code:
+
+<pre><code>#me_classifier.classify(unlabeled)</code></pre>
+
+h2. Questions
+
+Contact Chase Davis at cdavis@cironline.org.
