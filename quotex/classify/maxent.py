@@ -129,11 +129,11 @@ class MaxentWrapper(object):
 
 if __name__ == '__main__':
     # Train and test querysets for evaluate method
-    train_query = Paragraph.objects.filter(quote__isnull=False).order_by('pk')[:150]
-    test_query = Paragraph.objects.filter(quote__isnull=False).order_by('pk')[150:300]
+    train_query = Paragraph.training.all()[:150]
+    test_query = Paragraph.training.all()[150:300]
 
     # Unlabeled data for the classify method
-    unlabeled = Paragraph.objects.filter(quote__isnull=True)
+    unlabeled = Paragraph.unclassified.all()
 
     # Evaluate and classify
     me_classifier = MaxentWrapper(train_query)
