@@ -21,6 +21,8 @@ cd quotex
 python manage.py runserver
 </code></pre>
 
+The quote browser will be running in your browser at 127.0.0.1:8000.
+
 h2. Training the system
 
 More details TK
