@@ -1,6 +1,6 @@
 h1. Citizen Quotes
 
-A simple project to demonstrate the use of NLTK maximum entropy models for extracting quotes from news articles. Also includes a pretty quote browser that cycles through quotes from Bay Citizen content.
+A simple project to demonstrate the use of NLTK maximum entropy models for extracting quotes from news articles. Also includes a pretty quote browser that cycles through quotes from a random selection of Bay Citizen stories.
 
 h2. Includes
 
