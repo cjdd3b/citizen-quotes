@@ -49,4 +49,4 @@ When you're ready to perform the actual classification, just uncomment the follo
 
 h2. Questions
 
-Contact Chase Davis at cdavis@cironline.org.
+This project brought to you by Chase Davis' nights and weekends: cdavis@cironline.org.
