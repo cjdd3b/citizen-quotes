@@ -20,3 +20,7 @@ pip install -r requirements.txt
 cd quotex
 python manage.py runserver
 </code></pre>
+
+h2. Training the system
+
+More details TK
