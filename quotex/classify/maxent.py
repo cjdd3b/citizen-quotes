@@ -129,8 +129,9 @@ class MaxentWrapper(object):
 
 if __name__ == '__main__':
     # Train and test querysets for evaluate method
-    train_query = Paragraph.training.all()[:150]
-    test_query = Paragraph.training.all()[150:300]
+    training_set = Paragraph.training.all()
+    train_query = training_set[:len(training_set)/2]
+    test_query = Paragraph.training.all()[len(training_set)/2:]
 
     # Unlabeled data for the classify method
     unlabeled = Paragraph.unclassified.all()
@@ -138,4 +139,4 @@ if __name__ == '__main__':
     # Evaluate and classify
     me_classifier = MaxentWrapper(train_query)
     me_classifier.evaluate(test_query)
-    me_classifier.classify(unlabeled)
+    #me_classifier.classify(unlabeled)
