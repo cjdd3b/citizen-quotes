@@ -1,3 +1,21 @@
 h1. Quote extraction demo
 
-First crack at quote extraction using maxent classifiers. More TK soon ...
+A simple project to demonstrate the use of maximum entropy models for extracting quotes from news articles. Also includes a pretty quote browser that cycles through quotes from Bay Citizen content.
+
+h2. Includes
+
+* A workflow and class wrapper for training, evaluating and applying NLTK maximum entropy models to quote detection.
+* A demonstration of OpenCalais for coreference detection.
+* Basic Django admin interface for training a classifier.
+* A simple public-facing quote browser interface.
+* Sample data so you can see how everything comes together.
+
+h2. Getting started
+
+The demo is designed to work out of the box with an included SQLite database. To get up and running, simply:
+
+<pre><code>git clone git@github.com:cirlabs/citizen-quotes.git
+pip install -r requirements.txt
+cd quotex
+python manage.py runserver
+</code></pre>
