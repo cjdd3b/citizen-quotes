@@ -30,7 +30,7 @@
                     namequery = true;
 
                     // Prep for tastypie-style query
-                    params["sources__name__contains"] = source;
+                    params["sources__name__icontains"] = source;
                     // Add header thing explaining query so people don't get list
                     $("#search-term").html('<h3>Quotes featuring "' + source + '"<br /><a href="/">Back to all quotes</a></h3>');
 
