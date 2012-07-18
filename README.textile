@@ -1,6 +1,6 @@
 h1. Citizen Quotes
 
-A simple project to demonstrate the use of maximum entropy models for extracting quotes from news articles. Also includes a pretty quote browser that cycles through quotes from Bay Citizen content.
+A simple project to demonstrate the use of NLTK maximum entropy models for extracting quotes from news articles. Also includes a pretty quote browser that cycles through quotes from Bay Citizen content.
 
 h2. Includes
 
@@ -36,3 +36,7 @@ Navigate to the paragraph interface. In the list view, you'll see a dropdown tha
 The more training data you have, the better the classifier will work. We'd recommend manually classifiying at least a few hundred before you set the classifier loose.
 
 h2. Running the classifier
+
+The classifier is located at <code>quoted/classify/maxent.py</code>. Running it is easy:
+
+<pre><code>python maxent.py</code></pre>
