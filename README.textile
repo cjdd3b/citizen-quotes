@@ -25,4 +25,14 @@ The quote browser will be running in your browser at 127.0.0.1:8000.
 
 h2. Training the system
 
-More details TK
+Being supervised classifiers, maxent models require a set of training data to learn from before they can begin classifying.
+
+In this case, the classification problem is a simply binary choice: Given a paragraph, is it a quote or isn't it? But as with most classification problems, things aren't quite so simple under the surface.
+
+Luckily, training the system is easy. Simple log into the system's admin interface at 127.0.0.1:8000/admin. The default username and password are both quotex.
+
+Navigate to the paragraph interface. In the list view, you'll see a dropdown that identifies an item as a quote and a checkbox indicating it should be in the training set. Simply set these values according to the each value according to its paragraph and hit save.
+
+The more training data you have, the better the classifier will work. We'd recommend manually classifiying at least a few hundred before you set the classifier loose.
+
+h2. Running the classifier
