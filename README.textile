@@ -37,6 +37,16 @@ The more training data you have, the better the classifier will work. We'd recom
 
 h2. Running the classifier
 
-The classifier is located at <code>quoted/classify/maxent.py</code>. Running it is easy:
+The classifier is located at <code>quotex/classify/maxent.py</code>. Running it is easy:
 
 <pre><code>python maxent.py</code></pre>
+
+The first thing you'll want to do is see how it performs. By default, the script uses your manually classified training set to test initial performance. It does this by splitting the set in half: the first half for training and the second half for testing. You can change that split in the code if you'd like.
+
+When you're ready to perform the actual classification, just uncomment the following line in the classifier code:
+
+<pre><code>#me_classifier.classify(unlabeled)</code></pre>
+
+h2. Questions
+
+Contact Chase Davis at cdavis@cironline.org.
