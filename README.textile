@@ -1,4 +1,4 @@
-h1. Quote extraction demo
+h1. Citizen Quotes
 
 A simple project to demonstrate the use of maximum entropy models for extracting quotes from news articles. Also includes a pretty quote browser that cycles through quotes from Bay Citizen content.
 
