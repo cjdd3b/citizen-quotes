@@ -1,7 +1,6 @@
 from django.views.generic import TemplateView
-from django.shortcuts import render_to_response, get_object_or_404
 from django.db.models import Sum
-from apps.content.models import Paragraph, Source
+from quotex.apps.content.models import Paragraph, Source
 
 
 class IndexView(TemplateView):

@@ -12,7 +12,7 @@ ain't free: http://www.ldc.upenn.edu/Catalog/catalogEntry.jsp?catalogId=LDC2003T
 Calais was the cheap and easy way to start, which works fine for demo purposes.
 '''
 from calais import Calais
-from apps.content.models import Story, Source
+from quotex.apps.content.models import Story, Source
 
 # OpenCalais API key. Get one here: http://www.opencalais.com/APIkey/
 API_KEY = ''

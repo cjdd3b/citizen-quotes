@@ -1,7 +1,7 @@
 from tastypie import fields
 from tastypie.resources import ModelResource
 from tastypie.constants import ALL, ALL_WITH_RELATIONS
-from apps.content.models import Paragraph, Source
+from quotex.apps.content.models import Paragraph, Source
 
 
 class SourceResource(ModelResource):

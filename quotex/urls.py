@@ -1,8 +1,7 @@
 from django.conf.urls import patterns, include, url
-from django.views import generic
 from tastypie.api import Api
-from apps.content.views import IndexView
-from apps.content.api import QuoteResource, SourceResource
+from quotex.apps.content.views import IndexView
+from quotex.apps.content.api import QuoteResource, SourceResource
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin

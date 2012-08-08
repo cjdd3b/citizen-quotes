@@ -1,5 +1,5 @@
 from django.contrib import admin
-from apps.content.models import Story, Paragraph, Source
+from quotex.apps.content.models import Story, Paragraph, Source
 
 ########## INLINES ##########
 

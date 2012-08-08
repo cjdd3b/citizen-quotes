@@ -15,7 +15,7 @@ http://nltk.googlecode.com/svn/trunk/doc/book/ch06.html
 '''
 import nltk
 from nltk.classify import MaxentClassifier
-from apps.content.models import Paragraph
+from quotex.apps.content.models import Paragraph
 from classify.features import *
 
 ########## FEATURE AGGREGATOR ##########
